@@ -1,5 +1,4 @@
 (function() {
-    geocoder = new google.maps.Geocoder(),
         districts = true,
         callback = false
 
@@ -278,7 +277,6 @@
     window.onload = function() {
         current_onload()
 
-        search_form.onsubmit = function() { searchSubmit.apply(this); return false; }
 
         var readMores = document.body.querySelectorAll('.click--read-more')
         for (var i = 0; i < readMores.length; i++) { readMores[i].onclick = readMore };
