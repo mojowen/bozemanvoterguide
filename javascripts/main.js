@@ -1,6 +1,6 @@
 (function() {
     geocoder = new google.maps.Geocoder(),
-        districts = false,
+        districts = true,
         callback = false
 
     /** Mapping **/
@@ -282,9 +282,6 @@
 
         var readMores = document.body.querySelectorAll('.click--read-more')
         for (var i = 0; i < readMores.length; i++) { readMores[i].onclick = readMore };
-
-        tinyGET('/data/wards.json',{},
-            function(data) { districts = data; when_ready(); });
 
         if( document.location.hash.length > 0 ) {
             if( document.location.hash[1] != '!' ) {

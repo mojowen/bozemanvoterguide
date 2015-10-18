@@ -4,8 +4,8 @@ require 'erb'
 def candidate_data
     candidates = JSON::parse(File.read('data/candidates.json'))
     questions = candidates.first.keys.reject{ |k| k[-1] != "?" }.map(&:to_s)
-    districts = candidates.group_by{ |ca| ca['ward'] }
-    return districts, questions
+    races = candidates.group_by{ |ca| ca['race'] }
+    return races, questions
 end
 
 def _get_ordinal n
@@ -40,15 +40,15 @@ class Controller
 
     def index
         @meta_partial = set_meta
-        @districts, @questions = candidate_data
+        @races, @questions = candidate_data
     end
 
     def counselors counselor
         name = counselor['name']
         link = name.downcase.gsub(' ','-').gsub(/[^a-zA-Z0-9\-]/,'')
-        office = "#{_get_ordinal(counselor['ward'])} Ward counselor"
-        @anchor =  "@#{counselor['ward']}"
-        @filename = "counselors/#{counselor['ward']}-#{link}"
+        office = "#{_get_ordinal(counselor['race'])} Ward counselor"
+        @anchor =  "@#{counselor['race']}"
+        @filename = "counselors/#{counselor['race']}-#{link}"
         @meta_partial = set_meta({
             'url' => "#{@base.url}/sharing/#{@filename}",
             'image' => "#{@base.url}/#{counselor['photo']}",

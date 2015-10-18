@@ -19,17 +19,10 @@
     </div>
     <div class="section" id="counselors">
       <div class="inner">
-        <h1>Billings City Council</h1>
-        <form id="search_form" class="grid-8 centered">
-            <input placeholder="Enter Your Address" type="text" name="address">
-            <button type="submit">Find Your Ward</button>
-        </form>
-        <div class="map_container">
-          <div id="map_canvas"></div>
-        </div>
-        <% @districts.each do |district, candidates| %>
-          <div class="district" data-district="<%= district %>">
-            <h2>Ward <%= district %></h2>
+        <h1>Bozeman Municipal Elections</h1>
+        <% @races.each do |race, candidates| %>
+          <div class="district" data-district="<%= race %>">
+            <h2><%= race %></h2>
             <% candidates.each do |counselor| %>
               <div class="counselor <%= "row-#{[nil,1,2][candidates.length]}" if candidates.length < 3 %>">
                 <h2><%= counselor['name'] %></h2>
@@ -41,7 +34,7 @@
                   <a target="_blank" class="fa fa-facebook-square" href="<%= counselor['facebook'] %>">Facebook</a>
                 <% end %>
                 <div class="bio"><%= counselor['why'] %></div>
-                <a class="vote_for" data-name="<%= counselor["name"] %>" data-link="/sharing/counselors/<%= district %>-<%= counselor['name'].downcase.gsub(' ','-').gsub(/[^a-zA-Z0-9\-]/,'') %>.html" data-office="Billings City Council" onclick="endorsementWidget(this)">endorse</a>
+                <a class="vote_for" data-name="<%= counselor["name"] %>" data-link="/sharing/counselors/<%= race %>-<%= counselor['name'].downcase.gsub(' ','-').gsub(/[^a-zA-Z0-9\-]/,'') %>.html" data-office="<%= race %>" onclick="endorsementWidget(this)">endorse</a>
               </div>
             <% end %>
             <div class="issues">
@@ -100,8 +93,6 @@
     </div>
   </div>
 
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
-  <script type="text/javascript" src="/javascripts/turf.min.js"></script>
   <script type="text/javascript" src="/javascripts/tinyxhr.js"></script>
   <script type="text/javascript" src="/javascripts/main.js"></script>
 
